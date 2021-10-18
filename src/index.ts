@@ -1,8 +1,9 @@
 import { app } from './app';
 import * as http from 'http';
-import { MongoHelper } from './mongo.helper';
+import { MongoHelper } from './db/mongo.helper'; // not used while mongoose in use
 import * as mongoose from 'mongoose';
-
+const dotenv = require('dotenv')
+dotenv.config()
 
 const port = 8080;
 const server = http.createServer(app);
@@ -11,10 +12,10 @@ server.listen(port);
 server.on('error', (err) => {
 	console.error(err);
 });
-const MONGO_URI = "mongodb+srv://Guest:GuestSession@cluster0.wucbb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
 server.on('listening', async () => {
 	console.info(`Listening on port ${port}`);
-	mongoose.connect(MONGO_URI, {});
+	mongoose.connect(process.env.MONGO_URI, {});
 	mongoose.connection.once('open', () => {
 		console.info('Connected to Mongo via Mongoose');
 	});
