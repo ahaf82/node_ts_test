@@ -25,6 +25,7 @@ export const register = async (req: Request, res: Response): Promise<Response> =
 }
 
 export const login = async (req: Request, res: Response): Promise<Response> => {
+	console.log(req.body)
 	if (!req.body.email || !req.body.password) {
 		return res.status(400).json({ msg: 'Bitte alle Felder ausfüllen' });
 	}
