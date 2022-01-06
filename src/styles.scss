@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.container {
+	margin: 3em !important;
+	padding: 1em;
+	border: black 1px solid !important;
+	border-radius: 1em;
+	box-shadow: 10px 9px 5px;
+}
+
+.right {
+	float: right;
+}
+
+.hand {
+	cursor: pointer;
+}

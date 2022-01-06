@@ -1,0 +1,22 @@
+.container
+	.row 
+		.col-4 
+			p 
+				span Playground for testing:
+		.col-8
+				button.btn.btn-primary.right("(click)"="logout()") Ausloggen
+		.col-12
+			p
+				input("[(ngModel)]"="newTodo" placeholder="New Todo" "(keyup.enter)"="addTodo()")
+
+			div("*ngFor"="let item of result")
+				p
+					span.hand("(click)"="deleteTodo(item)") x 
+					span.hand("(click)"="showUpdateInput(item)") {{item.description}}
+			p("*ngIf"="showUpdateInputField == true")
+				input("[(ngModel)]"="updateTodoObject.description" placeholder="New Todo" "(keyup.enter)"="updateTodo(updateTodoObject)")
+	.row 
+		.col-12 
+			button.btn.btn-danger("(*click)"="fireEvent()") Fire
+
+	

@@ -1,0 +1,11 @@
+.container
+	.row 
+		.col-12 
+			p
+				input("[(ngModel)]"="email" placeholder="Email")
+			p
+				input("[(ngModel)]"="password" placeholder="Password" type="password")
+		.col-2 
+			button.btn.btn-primary("(click)"="registerUser()") Registrieren
+		.col-2
+			button.btn.btn-danger("(click)"="backToLogin()") Zum Login

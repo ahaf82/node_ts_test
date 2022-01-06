@@ -1,3 +1,16 @@
+Check
+	pug					https://github.com/danguilherme/ng-cli-pug-loader/issues/38
+	font-awesome		https://stackoverflow.com/questions/38796541/how-to-add-font-awesome-to-angular-2-cli-project
+	ngmodel				https://stackoverflow.com/questions/38892771/cant-bind-to-ngmodel-since-it-isnt-a-known-property-of-input
+
+	delegator
+	resources
+	authentication
+	modules
+	cypress
+
+
+
 # AngularTestFrontEnt
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.7.
