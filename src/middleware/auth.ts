@@ -12,8 +12,7 @@ const auth = (req: express.Request, res: express.Response, next: express.NextFun
     }
     try {
         const decoded = jwt.verify(token, config.jwtSecret);
-        console.log("decoded in auth", decoded);
-        
+
         next();
     } catch (err) {
         res.status(401).json({ mdg: 'Token not valid' });

@@ -1,39 +1,47 @@
 import * as express from 'express';
-// import { TodoModel } from '../model/todo';
+import { EventEmitter } from 'events';
+import { Worker } from 'worker_threads';
+import emitter from '../loaders/eventEmitter';
 
-// const getTodos = async (req: express.Request, resp: express.Response, next: express.NextFunction) => {
-// 	try {
-// 		let items: any = await TodoModel.find({});
-// 		items = items.map((item) => { return { id: item._id, description: item.description } });
-// 		resp.json(items);
-// 	} catch (err) {
-// 		resp.status(500);
-// 		resp.end();
-// 		console.error('Caught error', err);
-// 	}
-// }
+const userEmitter = new EventEmitter();
+
+const sendMail = (user: string, mail: string) => {
+	console.log(`I am ${user} and send a ${mail}-mail`);
+}
+
+const workWithWorker = async (resp) => {
+	return new Promise((resolve, reject) => {
+		const message = "Hey Dude!";
+		const worker = new Worker('./src/worker/workers.js');
+		worker.on('error', (err) => {
+			reject(resp.send(err));
+		});
+		worker.on('message', (message) => {
+			resolve(resp.send({ msg: "got request", result: message }).end());
+		});
+		worker.postMessage(message);
+	})
+}
+
+userEmitter.on('new User', sendMail);
 
 const create = async (req: express.Request, resp: express.Response, next: express.NextFunction) => {
-	console.log("request in server");
-	resp.send({ msg: "got request" });
+	userEmitter.emit("new User", 'Armin', 'B2B');
+	emitter.emit('create User');
+	workWithWorker(resp);
+}
+
+const addOwnListener = async (req: express.Request, resp: express.Response, next: express.NextFunction) => {
+	userEmitter.emit("add Listener");
+	emitter.emit('update User');
 	resp.end();
 }
 
-// const updateTodo = async (req: express.Request, resp: express.Response, next: express.NextFunction) => {
-// 	const description = req.body['description'];
-// 	const id = req.params['id'];
-// 	await TodoModel.findByIdAndUpdate(id, { description: description });
-// 	console.log("update Todo", description);
-// 	resp.send({ msg: description });
-// 	resp.end();
-// }
-
-// const deleteTodo = async (req: express.Request, resp: express.Response, next: express.NextFunction) => {
-// 	const id = req.params['id'];
-// 	await TodoModel.findByIdAndRemove(id);
-// 	console.log("delete Todo", id);
-// 	resp.end();
-// }
+const removeOwnListener = async (req: express.Request, resp: express.Response, next: express.NextFunction) => {
+	userEmitter.emit("remove Listener");
+	emitter.emit('delete User');
+	resp.end();
+}
 
 // export { getTodos, createTodo, updateTodo, deleteTodo };
-export { create };
+export { create, addOwnListener, removeOwnListener, userEmitter };

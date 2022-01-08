@@ -8,7 +8,7 @@ const testRoutes = express.Router();
 
 // testRoutes.get('/api/todo', auth, TodoController.getTodos);
 testRoutes.post('/api/test', auth, TestController.create);
-// testRoutes.put('/api/todo/:id', auth, TodoController.updateTodo);
-// testRoutes.delete('/api/todo/:id', auth, TodoController.deleteTodo);
+testRoutes.put('/api/test/', auth, TestController.addOwnListener);
+testRoutes.delete('/api/test/', auth, TestController.removeOwnListener);
 
 export { testRoutes }

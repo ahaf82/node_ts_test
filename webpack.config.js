@@ -24,7 +24,12 @@ module.exports = {
 				use: [
 					'ts-loader',
 				]
-			}
+			},
+			// Handle our workers
+			{
+				test: /\.worker\.js$/,
+				use: { loader: "worker-loader" },
+			},
 		]
 	},
 	externals: [nodeExternals()],
